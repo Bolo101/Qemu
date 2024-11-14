@@ -10,3 +10,18 @@ cd Qemu
 chmod +x install.sh
 sudo bash install.sh
 ```
+
+# Useful commands
+
+## Compress qcow2 image
+
+```bash
+qemu-img convert -O qcow2 -c source.qcow2 compressed.qcow2
+```
+## Convert files from vhd to qcow2
+
+```bash
+qemu-img convert -O qcow2 -c source.qcow2 compressed.qcow2
+```
+
+
