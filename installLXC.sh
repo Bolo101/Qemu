@@ -14,7 +14,7 @@ apt-get update -y
 
 # Install LXC and utilities
 echo "Installing LXC and dependencies..."
-apt-get install -y lxc lxc-utils
+apt-get install -y lxc bridge-utils
 
 # Install additional utilities for managing containers
 echo "Installing additional utilities..."
