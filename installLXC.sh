@@ -21,8 +21,8 @@ echo "Installing additional utilities..."
 apt-get install -y bridge-utils
 
 # Check if the installation was successful
-if command -v lxc-create >/dev/null 2>&1; then
-    echo "LXC has been successfully installed!"
+if command -v lxc-create >/dev/null 2>&1; then  # command -v check for lxc-create installation and returns path. Result is sent to /dev/null.
+    echo "LXC has been successfully installed!" #  Both stderr and stdout are redirected to /dev/null
 else
     echo "LXC installation failed. Please check for errors."
     exit 1
