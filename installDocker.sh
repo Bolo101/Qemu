@@ -1,17 +1,40 @@
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
+#!/bin/bash
 
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
+# Exit on any error
+set -e
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# Update system package list
+echo "Updating system package list..."
+sudo apt update -y
 
-sudo apt autoremove --purge
+# Install prerequisites for Docker
+echo "Installing required dependencies..."
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+
+# Add Docker's official GPG key
+echo "Adding Docker's official GPG key..."
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Set up the Docker stable repository for Debian (bullseye, compatible with Kali)
+echo "Setting up Docker repository..."
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bullseye stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Update the apt package list again to include Docker packages
+echo "Updating package list to include Docker..."
+sudo apt update -y
+
+# Install Docker Engine
+echo "Installing Docker..."
+sudo apt install -y docker-ce docker-ce-cli containerd.io
+
+# Verify Docker installation
+echo "Verifying Docker installation..."
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo docker --version
+
+# Allow your user to run Docker commands without 'sudo'
+echo "Adding current user to docker group..."
+sudo usermod -aG docker $USER
+
+echo "Docker installation complete! Please log out and log back in to use Docker without 'sudo'."
