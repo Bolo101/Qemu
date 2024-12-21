@@ -7,7 +7,7 @@ git clone https://github.com/Bolo101/Qemu.git
 # Execute script
 ```
 cd Qemu
-chmod +x install.sh
+chmod +x installQemu.sh
 sudo bash install.sh
 ```
 
