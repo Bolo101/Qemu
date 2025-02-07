@@ -29,5 +29,5 @@ qemu-img convert -O qcow2 -c source.qcow2 compressed.qcow2
 ## Convert files from vhd to qcow2
 
 ```bash
-qemu-img convert -O qcow2 -c source.qcow2 compressed.qcow2
+qemu-img convert -f vpc -O qcow2 source.vhd compressed.qcow2
 ```
