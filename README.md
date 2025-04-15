@@ -31,3 +31,9 @@ qemu-img convert -O qcow2 -c source.qcow2 compressed.qcow2
 ```bash
 qemu-img convert -f vpc -O qcow2 source.vhd compressed.qcow2
 ```
+
+## Launch using CLI
+
+```bash
+qemu-system-x86_64   -m 2048   -smp 2   -boot d  -drive file=debian12.qcow2,format=qcow2   -drive file=flash_device.img,format=raw,if=none,id=flash   -device usb-ehci,id=ehci   -device usb-storage,bus=ehci.0,drive=flash   -net nic   -net user   -enable-kvm
+```
